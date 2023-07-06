@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.tej.JooQDemo.jooq.sample.model.Tables;
+import com.tej.JooQDemo.jooq.sample.model.tables.pojos.Books;
 import com.tej.JooQDemo.jooq.sample.model.tables.pojos.Users;
 import org.jooq.DSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,11 @@ public class UserService {
                 .deleteFrom(Tables.USERS)
                 .where(Tables.USERS.ID.eq(Math.toIntExact(Id)))
                 .execute();
+    }
+
+    public Users getUserById(Integer userId) {
+        return context.selectFrom(Tables.USERS)
+                .where(Tables.USERS.ID.eq(userId))
+                .fetchOneInto(Users.class);
     }
 }

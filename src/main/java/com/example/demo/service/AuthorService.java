@@ -32,13 +32,9 @@ public class AuthorService {
                 .execute();
     }
 
-    public List<Authors> getAuthorsWithBooks(){
-        List<Authors> authors = context.select(Tables.AUTHORS.NAME, Tables.BOOKS.TITLE)
-                .from(Tables.AUTHORS)
-                .join(Tables.BOOKS).on(Tables.BOOKS.AUTHOR_ID.eq((Tables.AUTHORS.ID)))
-                .fetch()
-                .into(Authors.class);
-
-        return authors;
+    public Authors getAuthorById(Integer authorId) {
+        return context.selectFrom(Tables.AUTHORS)
+                .where(Tables.AUTHORS.ID.eq(authorId))
+                .fetchOneInto(Authors.class);
     }
 }

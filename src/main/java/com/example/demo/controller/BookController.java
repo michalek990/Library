@@ -14,14 +14,15 @@ import java.util.List;
 public class BookController {
     @Autowired
     BookService bookService;
+
     @GetMapping
     public List<Books> getBooks(){
         return this.bookService.getBooks();
     }
 
-    @GetMapping("/aa")
-    public List<BookResponse> getBookss(){
-        return this.bookService.getBooksss();
+    @GetMapping("/withAuthors")
+    public List<BookResponse> getBooksWthAuthorss(){
+        return this.bookService.getBooksWithAuthors();
     }
 
     @PostMapping

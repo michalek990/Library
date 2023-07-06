@@ -17,11 +17,6 @@ public class AuthorController {
         return this.authorService.getAuthors();
     }
 
-    @GetMapping("/aa")
-    public List<Authors> getAuthorWithBooks(){
-        return this.authorService.getAuthorsWithBooks();
-    }
-
     @PostMapping
     public void postAuthor(@RequestBody Authors author){
         this.authorService.insertAuthors(author);

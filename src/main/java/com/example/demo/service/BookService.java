@@ -16,6 +16,13 @@ import java.util.List;
 public class BookService {
     @Autowired
     DSLContext context;
+    AuthorService authorService;
+
+    public BookService(AuthorService authorS){
+        this.authorService = authorS;
+    }
+
+
     public List<Books> getBooks(){
         return context
                 .selectFrom(Tables.BOOKS)
@@ -44,7 +51,7 @@ public class BookService {
                 .execute();
     }
 
-    public List<BookResponse> getBooksss() {
+    public List<BookResponse> getBooksWithAuthors() {
         return context.select(
                         Tables.BOOKS.ID,
                         Tables.BOOKS.TITLE,
@@ -61,16 +68,16 @@ public class BookService {
     private BookResponse generateBookResponse(Record4<Integer, String, Integer, String> record) {
         Books book = record.into(Tables.BOOKS).into(Books.class);
         Integer authorId = record.get(Tables.AUTHORS.ID);
-        Authors author = getAuthorById(authorId);
+        Authors author = authorService.getAuthorById(authorId);
         BookResponse bookDetails = new BookResponse();
         bookDetails.setBook(book);
         bookDetails.setAuthor(author);
         return bookDetails;
     }
 
-    private Authors getAuthorById(Integer authorId) {
-        return context.selectFrom(Tables.AUTHORS)
-                .where(Tables.AUTHORS.ID.eq(authorId))
-                .fetchOneInto(Authors.class);
-    }
+        public Books getBookById(Integer bookId) {
+            return context.selectFrom(Tables.BOOKS)
+                    .where(Tables.BOOKS.ID.eq(bookId))
+                    .fetchOneInto(Books.class);
+        }
 }

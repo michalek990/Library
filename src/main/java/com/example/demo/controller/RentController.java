@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.RentResponse;
 import com.example.demo.service.BookService;
 import com.example.demo.service.RentService;
 import com.tej.JooQDemo.jooq.sample.model.tables.pojos.Books;
@@ -18,6 +19,12 @@ public class RentController {
     public List<Rents> getRents(){
         return this.rentService.getRents();
     }
+
+    @GetMapping("/withUsers")
+    public List<RentResponse> getRentsWithAllInfo(){
+        return this.rentService.getRentsWithUsersAndBooks();
+    }
+
     @PostMapping
     public void postRent(@RequestBody Rents rent){
         this.rentService.insertRent(rent);
