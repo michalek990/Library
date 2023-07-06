@@ -22,4 +22,9 @@ public class RentController {
     public void postRent(@RequestBody Rents rent){
         this.rentService.insertRent(rent);
     }
+
+    @DeleteMapping("/{Id}")
+    public void deleteRent(@PathVariable Long Id){
+        this.rentService.deleteRent(Id);
+    }
 }

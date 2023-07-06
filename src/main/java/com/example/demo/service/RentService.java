@@ -25,4 +25,10 @@ public class RentService {
                 .values(rent.getUserId(), rent.getBookId(), rent.getRentDate(), rent.getReturnDate())
                 .execute();
     }
+    public void deleteRent(Long Id){
+        context
+                .deleteFrom(Tables.RENTS)
+                .where(Tables.RENTS.ID.eq(Math.toIntExact(Id)))
+                .execute();
+    }
 }

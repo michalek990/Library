@@ -24,4 +24,11 @@ public class UserService {
                 .values(user.getFirstname(), user.getLastname(), user.getUsername())
                 .execute();
     }
+
+    public void deleteUser(Long Id){
+        context
+                .deleteFrom(Tables.USERS)
+                .where(Tables.USERS.ID.eq(Math.toIntExact(Id)))
+                .execute();
+    }
 }

@@ -22,4 +22,9 @@ public class UserController {
     public void postUser(@RequestBody Users user){
         this.userService.insertUsers(user);
     }
+
+    @DeleteMapping("/{Id}")
+    public void deleteBook(@PathVariable Long Id){
+        this.userService.deleteUser(Id);
+    }
 }

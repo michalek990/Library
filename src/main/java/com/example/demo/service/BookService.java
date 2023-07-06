@@ -25,4 +25,29 @@ public class BookService {
                 .values(book.getTitle(), book.getAuthorId())
                 .execute();
     }
+
+    public void deleteBook(Long Id){
+        context
+                .deleteFrom(Tables.BOOKS)
+                .where(Tables.BOOKS.ID.eq(Math.toIntExact(Id)))
+                .execute();
+    }
+
+    public void updateBookTitleById(int id, String newTitle) {
+
+        context.update(Tables.BOOKS)
+                .set(Tables.BOOKS.TITLE, newTitle)
+                .where(Tables.BOOKS.ID.eq(id))
+                .execute();
+    }
+
+    public List<Books> getBooksAndAuthors() {
+
+        List<Books> books  = context.select(Tables.BOOKS.TITLE, Tables.AUTHORS.NAME)
+                .from(Tables.BOOKS)
+                .leftJoin(Tables.AUTHORS).on(Tables.BOOKS.AUTHOR_ID.eq(Tables.AUTHORS.ID))
+                        .fetch()
+                        .into(Books.class);
+        return books;
+    }
 }

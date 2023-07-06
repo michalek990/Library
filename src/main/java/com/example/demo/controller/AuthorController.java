@@ -18,8 +18,14 @@ public class AuthorController {
     public List<com.tej.JooQDemo.jooq.sample.model.tables.pojos.Authors> getAuthor(){
         return this.authorService.getAuthors();
     }
+
     @PostMapping
     public void postAuthor(@RequestBody Authors author){
         this.authorService.insertAuthors(author);
+    }
+
+    @DeleteMapping("/{Id}")
+    public void deleteAuthor(@PathVariable Long Id){
+        this.authorService.deleteAuthor(Id);
     }
 }

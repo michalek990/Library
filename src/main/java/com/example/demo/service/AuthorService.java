@@ -23,4 +23,11 @@ public class AuthorService {
                 .values(author.getName())
                 .execute();
     }
+
+    public void deleteAuthor(Long Id){
+        context
+                .deleteFrom(Tables.AUTHORS)
+                .where(Tables.AUTHORS.ID.eq(Math.toIntExact(Id)))
+                .execute();
+    }
 }
