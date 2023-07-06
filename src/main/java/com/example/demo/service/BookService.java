@@ -1,8 +1,11 @@
 package com.example.demo.service;
 
+import com.example.demo.BookResponse;
 import com.tej.JooQDemo.jooq.sample.model.Tables;
+import com.tej.JooQDemo.jooq.sample.model.tables.pojos.Authors;
 import com.tej.JooQDemo.jooq.sample.model.tables.pojos.Books;
 import org.jooq.DSLContext;
+import org.jooq.Record4;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,13 +44,33 @@ public class BookService {
                 .execute();
     }
 
-    public List<Books> getBooksAndAuthors() {
-
-        List<Books> books  = context.select(Tables.BOOKS.TITLE, Tables.AUTHORS.NAME)
+    public List<BookResponse> getBooksss() {
+        return context.select(
+                        Tables.BOOKS.ID,
+                        Tables.BOOKS.TITLE,
+                        Tables.AUTHORS.ID,
+                        Tables.AUTHORS.NAME
+                )
                 .from(Tables.BOOKS)
-                .leftJoin(Tables.AUTHORS).on(Tables.BOOKS.AUTHOR_ID.eq(Tables.AUTHORS.ID))
-                        .fetch()
-                        .into(Books.class);
-        return books;
+                .join(Tables.AUTHORS)
+                .on(Tables.BOOKS.AUTHOR_ID.eq(Tables.AUTHORS.ID))
+                .fetch()
+                .map(this::generateBookResponse);
+    }
+
+    private BookResponse generateBookResponse(Record4<Integer, String, Integer, String> record) {
+        Books book = record.into(Tables.BOOKS).into(Books.class);
+        Integer authorId = record.get(Tables.AUTHORS.ID);
+        Authors author = getAuthorById(authorId);
+        BookResponse bookDetails = new BookResponse();
+        bookDetails.setBook(book);
+        bookDetails.setAuthor(author);
+        return bookDetails;
+    }
+
+    private Authors getAuthorById(Integer authorId) {
+        return context.selectFrom(Tables.AUTHORS)
+                .where(Tables.AUTHORS.ID.eq(authorId))
+                .fetchOneInto(Authors.class);
     }
 }

@@ -1,9 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.service.AuthorService;
-import com.example.demo.service.BookService;
 import com.tej.JooQDemo.jooq.sample.model.tables.pojos.Authors;
-import com.tej.JooQDemo.jooq.sample.model.tables.pojos.Books;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +13,13 @@ public class AuthorController {
     @Autowired
     AuthorService authorService;
     @GetMapping
-    public List<com.tej.JooQDemo.jooq.sample.model.tables.pojos.Authors> getAuthor(){
+    public List<Authors> getAuthor(){
         return this.authorService.getAuthors();
+    }
+
+    @GetMapping("/aa")
+    public List<Authors> getAuthorWithBooks(){
+        return this.authorService.getAuthorsWithBooks();
     }
 
     @PostMapping
