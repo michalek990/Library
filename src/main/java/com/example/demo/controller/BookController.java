@@ -4,7 +4,6 @@ import com.example.demo.BookResponse;
 import com.example.demo.service.BookService;
 import com.tej.JooQDemo.jooq.sample.model.tables.pojos.Books;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

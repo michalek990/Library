@@ -2,7 +2,6 @@ package com.example.demo.service;
 
 import com.tej.JooQDemo.jooq.sample.model.Tables;
 import com.tej.JooQDemo.jooq.sample.model.tables.pojos.Authors;
-import com.tej.JooQDemo.jooq.sample.model.tables.pojos.Books;
 import org.jooq.DSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,5 +35,13 @@ public class AuthorService {
         return context.selectFrom(Tables.AUTHORS)
                 .where(Tables.AUTHORS.ID.eq(authorId))
                 .fetchOneInto(Authors.class);
+    }
+
+    public void updateAuthorNameById(int id, String newName) {
+
+        context.update(Tables.AUTHORS)
+                .set(Tables.AUTHORS.NAME, newName)
+                .where(Tables.AUTHORS.ID.eq(id))
+                .execute();
     }
 }

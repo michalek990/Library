@@ -1,7 +1,6 @@
 package com.example.demo.service;
 
 import com.tej.JooQDemo.jooq.sample.model.Tables;
-import com.tej.JooQDemo.jooq.sample.model.tables.pojos.Books;
 import com.tej.JooQDemo.jooq.sample.model.tables.pojos.Users;
 import org.jooq.DSLContext;
 import org.springframework.beans.factory.annotation.Autowired;

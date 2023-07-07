@@ -1,9 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.RentResponse;
-import com.example.demo.service.BookService;
 import com.example.demo.service.RentService;
-import com.tej.JooQDemo.jooq.sample.model.tables.pojos.Books;
 import com.tej.JooQDemo.jooq.sample.model.tables.pojos.Rents;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
